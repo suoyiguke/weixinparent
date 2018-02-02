@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载 -->
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载 -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <!-- 二级缓存的总开关 -->
+        <setting name="cacheEnabled" value="true"/>
+
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
+    <!--批量设置别名com.yinkai.entities 就是包下的所有类 -->
+    <typeAliases>
+        <package name="com.yinkai.entities"/>
+    </typeAliases>
+
+
+    <!--配置分页插件
+        interceptor 拦截器
+     -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+            <property name="offsetAsPageNum" value="true"/>
+
+            <property name="rowBoundsWithCount" value="true"/>
+
+            <property name="pageSizeZero" value="true"/>
+
+            <property name="reasonable" value="true"/>
+
+        </plugin>
+    </plugins>
+
+
+</configuration>

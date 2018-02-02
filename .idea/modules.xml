@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/weixin-parent.iml" filepath="$PROJECT_DIR$/weixin-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weixincomment/weixincommont.iml" filepath="$PROJECT_DIR$/weixincomment/weixincommont.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weixindao/weixindao.iml" filepath="$PROJECT_DIR$/weixindao/weixindao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weixinpojo/weixinpojo.iml" filepath="$PROJECT_DIR$/weixinpojo/weixinpojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weixinservice/weixinservice.iml" filepath="$PROJECT_DIR$/weixinservice/weixinservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weixinweb/weixinweb.iml" filepath="$PROJECT_DIR$/weixinweb/weixinweb.iml" />
+    </modules>
+  </component>
+</project>

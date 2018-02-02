@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+
+    <!-- 事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+<!--    &lt;!&ndash;通知  &ndash;&gt;
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            &lt;!&ndash;
+            传播行为
+            什么样的方法要用到事务
+             propagation="REQUIRED"(CRUD操作)  必须用到事务
+             propagation="SUPPORTS"(查询操作)   支持事务，没有事务也可以
+                 &ndash;&gt;
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+
+
+        </tx:attributes>
+    </tx:advice>
+
+    &lt;!&ndash; aop &ndash;&gt;
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.yinkai.service.impl.*.*(..))"/>
+    </aop:config>-->
+
+
+    <!-- 事务注解支持 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

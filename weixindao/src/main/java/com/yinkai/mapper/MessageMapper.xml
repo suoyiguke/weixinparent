@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinkai.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.yinkai.entities.Message">
+    <id column="message_id" jdbcType="INTEGER" property="messageId" />
+    <result column="fromId" jdbcType="INTEGER" property="fromid" />
+    <result column="toId" jdbcType="INTEGER" property="toid" />
+    <result column="messageDate" jdbcType="TIMESTAMP" property="messagedate" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yinkai.entities.Message">
+    <result column="messageText" jdbcType="LONGVARCHAR" property="messagetext" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    message_id, fromId, toId, messageDate, type
+  </sql>
+  <sql id="Blob_Column_List">
+    messageText
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yinkai.entities.MessageExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yinkai.entities.MessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yinkai.entities.MessageExample">
+    delete from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yinkai.entities.Message">
+    insert into message (message_id, fromId, toId, 
+      messageDate, type, messageText
+      )
+    values (#{messageId,jdbcType=INTEGER}, #{fromid,jdbcType=INTEGER}, #{toid,jdbcType=INTEGER}, 
+      #{messagedate,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{messagetext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yinkai.entities.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="fromid != null">
+        fromId,
+      </if>
+      <if test="toid != null">
+        toId,
+      </if>
+      <if test="messagedate != null">
+        messageDate,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="messagetext != null">
+        messageText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="fromid != null">
+        #{fromid,jdbcType=INTEGER},
+      </if>
+      <if test="toid != null">
+        #{toid,jdbcType=INTEGER},
+      </if>
+      <if test="messagedate != null">
+        #{messagedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="messagetext != null">
+        #{messagetext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yinkai.entities.MessageExample" resultType="java.lang.Long">
+    select count(*) from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update message
+    <set>
+      <if test="record.messageId != null">
+        message_id = #{record.messageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromid != null">
+        fromId = #{record.fromid,jdbcType=INTEGER},
+      </if>
+      <if test="record.toid != null">
+        toId = #{record.toid,jdbcType=INTEGER},
+      </if>
+      <if test="record.messagedate != null">
+        messageDate = #{record.messagedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.messagetext != null">
+        messageText = #{record.messagetext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update message
+    set message_id = #{record.messageId,jdbcType=INTEGER},
+      fromId = #{record.fromid,jdbcType=INTEGER},
+      toId = #{record.toid,jdbcType=INTEGER},
+      messageDate = #{record.messagedate,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      messageText = #{record.messagetext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update message
+    set message_id = #{record.messageId,jdbcType=INTEGER},
+      fromId = #{record.fromid,jdbcType=INTEGER},
+      toId = #{record.toid,jdbcType=INTEGER},
+      messageDate = #{record.messagedate,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yinkai.entities.Message">
+    update message
+    <set>
+      <if test="fromid != null">
+        fromId = #{fromid,jdbcType=INTEGER},
+      </if>
+      <if test="toid != null">
+        toId = #{toid,jdbcType=INTEGER},
+      </if>
+      <if test="messagedate != null">
+        messageDate = #{messagedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="messagetext != null">
+        messageText = #{messagetext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yinkai.entities.Message">
+    update message
+    set fromId = #{fromid,jdbcType=INTEGER},
+      toId = #{toid,jdbcType=INTEGER},
+      messageDate = #{messagedate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      messageText = #{messagetext,jdbcType=LONGVARCHAR}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yinkai.entities.Message">
+    update message
+    set fromId = #{fromid,jdbcType=INTEGER},
+      toId = #{toid,jdbcType=INTEGER},
+      messageDate = #{messagedate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+</mapper>
